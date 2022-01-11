@@ -1,0 +1,24 @@
+{
+  "name": "bff-graphql",
+  "version": "1.0.0",
+  "description": "Simple BFF implementation using graphql and angular",
+  "scripts": {
+    "server": "node server/server.mjs",
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/karmats/bff-graphql.git"
+  },
+  "author": "Mats Roshauw",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/karmats/bff-graphql/issues"
+  },
+  "homepage": "https://github.com/karmats/bff-graphql#readme",
+  "dependencies": {
+    "express": "^4.17.2",
+    "express-graphql": "^0.12.0",
+    "graphql": "^15.8.0"
+  }
+}
