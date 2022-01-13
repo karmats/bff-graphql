@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Simple BFF implementation using graphql and angular",
   "scripts": {
-    "server": "node server/server.mjs",
+    "server": "nodemon server/server.mjs",
     "test": "test"
   },
   "repository": {
@@ -20,5 +20,8 @@
     "express": "^4.17.2",
     "express-graphql": "^0.12.0",
     "graphql": "^15.8.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
   }
 }
