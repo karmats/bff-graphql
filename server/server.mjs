@@ -1,6 +1,7 @@
+import cors from "cors";
 import express from "express";
 import { graphqlHTTP } from "express-graphql";
-import { buildSchema, graphql } from "graphql";
+import { buildSchema } from "graphql";
 
 // Construct a schema, using GraphQL schema language
 const schema = buildSchema(`
@@ -24,6 +25,7 @@ const root = {
 };
 
 const app = express();
+app.use(cors());
 app.use(
   "/graphql",
   graphqlHTTP({

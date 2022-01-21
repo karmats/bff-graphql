@@ -4,6 +4,7 @@
   "description": "Simple BFF implementation using graphql and angular",
   "scripts": {
     "server": "nodemon server/server.mjs",
+    "start": "cd client && npm start",
     "test": "test"
   },
   "repository": {
@@ -17,6 +18,7 @@
   },
   "homepage": "https://github.com/karmats/bff-graphql#readme",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.17.2",
     "express-graphql": "^0.12.0",
     "graphql": "^15.8.0"
