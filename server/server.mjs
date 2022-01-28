@@ -6,7 +6,7 @@ import { buildSchema } from "graphql";
 // Construct a schema, using GraphQL schema language
 const schema = buildSchema(`
   type Query {
-    hello(id: String): [Hello]
+    hello(id: String): Hello
     bye: String
   }
   type Hello {
@@ -17,10 +17,7 @@ const schema = buildSchema(`
 
 // The root provides a resolver function for each API endpoint
 const root = {
-  hello: ({ id }) => {
-    console.log(id);
-    return [{ id: "123", name: "Mats" }];
-  },
+  hello: () => ({ id: "123", name: "Mats" }),
   bye: () => "Good bye cruel world :(",
 };
 

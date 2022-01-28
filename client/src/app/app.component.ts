@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Apollo, gql } from 'apollo-angular';
+import { Observable } from 'rxjs';
+import { ApolloService } from './services/apollo.service';
 
 @Component({
   selector: 'app-root',
@@ -7,22 +8,11 @@ import { Apollo, gql } from 'apollo-angular';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
-  title = 'client';
+  result?: Observable<string>;
 
-  constructor(private readonly apollo: Apollo) {}
+  constructor(private readonly apolloService: ApolloService) {}
 
   ngOnInit(): void {
-    this.apollo
-      .query({
-        query: gql`
-          {
-            hello(id: "123") {
-              name
-            }
-            bye
-          }
-        `,
-      })
-      .subscribe(console.log);
+    this.result = this.apolloService.getHello();
   }
 }
