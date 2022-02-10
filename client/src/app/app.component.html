@@ -1,1 +1,21 @@
-<p>{{ result | async }}</p>
+<div class="wk-table-permit-overflow">
+  <table class="wk-table wk-table-striped">
+    <caption>
+      Clients
+    </caption>
+    <thead>
+      <tr>
+        <th scope="col" class="wk-is-centered">#</th>
+        <th scope="col">Company name</th>
+        <th scope="col">Company type</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let client of clients$ | async">
+        <th scope="row" class="wk-is-centered">{{ client.Id }}</th>
+        <td>{{ client.CompanyName }}</td>
+        <td>{{ client.CompanyType }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

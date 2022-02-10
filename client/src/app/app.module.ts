@@ -1,15 +1,20 @@
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpHeaders } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
+import { ApolloClientOptions, InMemoryCache } from '@apollo/client/core';
 import { APOLLO_OPTIONS } from 'apollo-angular';
 import { HttpLink } from 'apollo-angular/http';
-import { ApolloClientOptions, InMemoryCache } from '@apollo/client/core';
-
 import { AppComponent } from './app.component';
 
 function createApollo(httpLink: HttpLink): ApolloClientOptions<unknown> {
+  const token = localStorage.getItem('access_token');
   return {
-    link: httpLink.create({ uri: 'http://localhost:4000/graphql' }),
+    link: httpLink.create({
+      uri: 'http://localhost:4000/graphql',
+      headers: new HttpHeaders({
+        authorization: token ? `Bearer ${token}` : '',
+      }),
+    }),
     cache: new InMemoryCache(),
   };
 }
