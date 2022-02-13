@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "description": "Simple BFF implementation using graphql and angular",
   "scripts": {
+    "start": "concurrently --kill-others-on-fail \"npm:client\" \"npm:server\"",
     "server": "nodemon server/server.mjs",
-    "start": "cd client && npm start",
+    "client": "cd client && npm start",
     "test": "test"
   },
   "repository": {
@@ -25,6 +26,7 @@
     "node-fetch": "^3.2.0"
   },
   "devDependencies": {
+    "concurrently": "^7.0.0",
     "nodemon": "^2.0.15"
   }
 }
