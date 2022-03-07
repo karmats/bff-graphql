@@ -19,6 +19,8 @@ const schema = buildSchema(`
   }
   type Client {
     Id: String
+    ClientNumber: String
+    ClientOwner: String
     CompanyName: String
     CompanyType: String
   }
@@ -28,9 +30,9 @@ const schema = buildSchema(`
 const root = {
   hello: () => ({ id: "123", name: "Mats" }),
   bye: () => "Good bye cruel world :(",
-  clients: (_, request) => {
+  clients: async (_, request) => {
     const bearer = request.headers.authorization;
-    return fetch(`${baseUrl}/FilteredData`, {
+    const response = await fetch(`${baseUrl}/FilteredData`, {
       method: "put",
       body: { myClients: { id: 1 } },
       headers: {
@@ -38,7 +40,8 @@ const root = {
         authorization: bearer,
         ["content-type"]: "application/json",
       },
-    }).then((response) => response.json());
+    });
+    return await response.json();
   },
 };
 

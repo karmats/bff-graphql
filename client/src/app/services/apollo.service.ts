@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Apollo, gql } from 'apollo-angular';
 import { map, Observable } from 'rxjs';
-import { Client } from '../models/client.model';
+import { Client, ClientColumn } from '../models/client.model';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +11,7 @@ export class ApolloService {
 
   getHello(): Observable<string> {
     return this.apollo
-      .query<{ hello: { name: string } }>({
+      .watchQuery<{ hello: { name: string } }>({
         query: gql`
           {
             hello {
@@ -20,22 +20,20 @@ export class ApolloService {
           }
         `,
       })
-      .pipe(map((result) => result.data.hello.name));
+      .valueChanges.pipe(map((result) => result.data.hello.name));
   }
 
-  getClients(): Observable<Client[]> {
+  getClients(columns: ClientColumn[]): Observable<Client[]> {
     return this.apollo
-      .query<{ clients: Client[] }>({
+      .watchQuery<{ clients: Client[] }>({
         query: gql`
           {
             clients {
-              Id
-              CompanyType
-              CompanyName
+              ${columns.map((c) => c.field).join('\n')}
             }
           }
         `,
       })
-      .pipe(map((result) => result.data.clients));
+      .valueChanges.pipe(map((result) => result.data.clients));
   }
 }

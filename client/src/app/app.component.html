@@ -1,20 +1,51 @@
 <div class="wk-table-permit-overflow">
+  <div
+    role="group"
+    class="wk-field wk-field-small wk-field-horizontal-choices docs-checkbox-radio"
+    aria-labelledby="clientColumns"
+  >
+    <div class="wk-field-header">
+      <label class="wk-field-label" id="clientColumns"
+        >Choose which columns to show</label
+      >
+    </div>
+    <div class="wk-field-body">
+      <label *ngFor="let column of columns" class="wk-field-choice-label">
+        <input
+          type="checkbox"
+          class="wk-field-choice"
+          [name]="column.field"
+          [value]="column.field"
+          [checked]="selectedColumns.includes(column)"
+          (change)="toggleColumn(column)"
+        />
+        <span class="wk-field-choice-text">{{ column.label }}</span>
+      </label>
+    </div>
+  </div>
   <table class="wk-table wk-table-striped">
     <caption>
       Clients
     </caption>
     <thead>
       <tr>
-        <th scope="col" class="wk-is-centered">#</th>
-        <th scope="col">Company name</th>
-        <th scope="col">Company type</th>
+        <th
+          *ngFor="let column of selectedColumns; index as i"
+          scope="col"
+          [class.wk-is-centered]="i === 0"
+        >
+          {{ column.label }}
+        </th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let client of clients$ | async">
-        <th scope="row" class="wk-is-centered">{{ client.Id }}</th>
-        <td>{{ client.CompanyName }}</td>
-        <td>{{ client.CompanyType }}</td>
+        <ng-container *ngFor="let column of selectedColumns; index as i">
+          <th *ngIf="i === 0" scope="row" class="wk-is-centered">
+            {{ client[column.field] }}
+          </th>
+          <td *ngIf="i > 0">{{ client[column.field] }}</td>
+        </ng-container>
       </tr>
     </tbody>
   </table>
